@@ -40,7 +40,10 @@ public class LocalOAuthConfig {
       return http
             .authorizeHttpRequests( auth -> auth
                   .anyRequest().permitAll() )
-            .csrf().disable()
-            .headers().frameOptions().disable().and().build();
+            .csrf( csrf -> csrf
+                  .ignoringRequestMatchers( "/**" ) )
+            .headers( headers -> headers
+                  .frameOptions( frame -> frame.disable() ) )
+            .build();
    }
 }

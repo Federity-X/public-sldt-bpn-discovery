@@ -64,9 +64,9 @@ public class OAuthConfig {
                   .hasRole( JwtRoles.ADD.getRole() )
 
             )
-            .csrf().disable()
-            .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS )
-            .and()
+            .csrf( csrf -> csrf
+                  .ignoringRequestMatchers( "/api/**" ) )
+            .sessionManagement( session -> session.sessionCreationPolicy( SessionCreationPolicy.STATELESS ) )
             .oauth2ResourceServer( oauth2 -> oauth2
                   .jwt( jwt -> jwt
                         .jwtAuthenticationConverter( jwtAuthenticationConverter ) ) );
